@@ -222,7 +222,8 @@ def main():
             print("Invalid choice. Please enter 'e' to encrypt or 'd' to decrypt.")
             
 if __name__ == "__main__":
-    main()                                                  
+    main()       
+                                               
     # hidethegoldinthetreestump
     # playfair example
     # BMODZBXDNABEKUDMUIXMMOUVIF
