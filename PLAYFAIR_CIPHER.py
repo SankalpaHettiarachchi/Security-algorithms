@@ -1,12 +1,12 @@
 import string
 
 class PlayfairCipher:
-    def __init__(self, key):
-        self.key = key.upper()
+    def __init__(self, key,plaintext):
+        self.key = key
         print('Key is : ',self.key)
         
         # prepare the key matrix
-        alphabet = string.ascii_uppercase.replace('J','.') 
+        alphabet = string.ascii_lowercase.replace('j','.') 
         print(alphabet)
         key_matrix = ['' for i in range(5)]
         
@@ -29,15 +29,34 @@ class PlayfairCipher:
                 if j>4:
                     i+=1
                     j=0
-                    
+        
         print(key_matrix)
                     
+        # prepare pairs in plain text
         
+        # prepare the key matrix
+        self.plaintext = plaintext
+        print(plaintext)
+
+        plaintext_pairs = []
+        ciphertext_pairs = []
         
-        
-        
-        
-        
+        i=0
+        while i < len(plaintext):
+            first_letter = plaintext[i]
+            second_letter = ''
+            if(i + 1)== len(plaintext):
+                second_letter = 'x'
+            else:
+                second_letter = plaintext[i+1]
+            
+            if first_letter != second_letter:
+                plaintext_pairs.append(first_letter + second_letter)
+                i+=2
+            else:
+                plaintext_pairs.append(first_letter + 'x')
+                i+=1
+        print(plaintext_pairs)
         
         
         
@@ -54,7 +73,8 @@ def main():
     while True:
         print("====================================================================")
         key = input("Enter the key: ")                      # Take user input for the shift value
-        cipher = PlayfairCipher(key)                        # Create an instance of the CaesarCipher class with the given shift
+        plaintext = input("Enter the text to encrypt: ")    # Take user input for the text to encrypt
+        cipher = PlayfairCipher(key,plaintext)                        # Create an instance of the CaesarCipher class with the given shift
 
         # choice = input("Enter 'E' to encrypt or 'D' to decrypt: ")  # Ask if the user wants to encrypt or decrypt
 
