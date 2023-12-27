@@ -32,9 +32,8 @@ class PlayfairCipher:
         
         print(key_matrix)
                     
-        # prepare pairs in plain text
         
-        # prepare the key matrix
+        # Rule 01 - prepare pairs in plain text
         self.plaintext = plaintext
         print(plaintext)
 
@@ -58,9 +57,39 @@ class PlayfairCipher:
                 i+=1
         print(plaintext_pairs)
         
+        # Rule 02 - Replace letters with their right letter in same row
+        for pair in plaintext_pairs:
+            applied_rule = False
+            for row in key_matrix:
+                if pair[0] in row and pair[1] in row:
+                    row_index1 = row.find(pair[0])
+                    row_index2 = row.find(pair[1])
+                    
+                    ciphertext_pair = row[(row_index1+1)%5] + row[(row_index2+1)%5] 
+                    ciphertext_pairs.append(ciphertext_pair)
+                    applied_rule = True
         
+            if applied_rule:
+                continue
+                        
+        # Rule 03 - Replace letters with their right letter in same column
+            for j in range(5):
+                col="".join([key_matrix[i][j] for i in range(5)])
+                if pair[0] in col and pair[1] in col:
+                        col_index1 = col.find(pair[0])
+                        col_index2 = col.find(pair[1])
+                        
+                        ciphertext_pair = col[(col_index1+1)%5] + col[(col_index2+1)%5] 
+                        ciphertext_pairs.append(ciphertext_pair)
+                        applied_rule = True
+                        
+            if applied_rule:
+                continue
+            
+            ciphertext_pairs.append('')
+            
+        print(ciphertext_pairs)
         
-
     # def encrypt(self, plaintext):
     #     encrypted_text = plaintext
     #     return encrypted_text
@@ -72,10 +101,11 @@ class PlayfairCipher:
 def main():
     while True:
         print("====================================================================")
-        key = input("Enter the key: ")                      # Take user input for the shift value
-        plaintext = input("Enter the text to encrypt: ")    # Take user input for the text to encrypt
+        key = 'playfair example'                      # Take user input for the shift value
+        plaintext = 'hidethegoldinthetreestump'    # Take user input for the text to encrypt
         cipher = PlayfairCipher(key,plaintext)                        # Create an instance of the CaesarCipher class with the given shift
-
+        stop = input('Stoped')
+        
         # choice = input("Enter 'E' to encrypt or 'D' to decrypt: ")  # Ask if the user wants to encrypt or decrypt
 
         # if choice == 'E':                                   # If user chooses encryption
