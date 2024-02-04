@@ -1,38 +1,49 @@
 class CaesarCipher:
     def __init__(self, shift):
-        self.shift = shift % 26                     # Ensure the shift value is between 0 and 25
+        # Ensure the shift value is between 0 and 25
+        self.shift = shift % 26                     
 
     def encrypt(self, plaintext):
         encrypted_text = ""
         for char in plaintext:
-            if char.isalpha():                      # Check if the character is an alphabet
-                shifted = ord(char) + self.shift    # Shift the character by the specified value
-                if char.islower():                  # Check if it's a lowercase letter
-                    if shifted > ord('z'):          # Wrap around if shifted beyond 'z'
+            # Check if the character is an alphabet
+            if char.isalpha():
+                # Shift the character by the specified value                      
+                shifted = ord(char) + self.shift    
+                # Check if it's a lowercase letter
+                if char.islower():  
+                    # Wrap around if shifted beyond 'z'               
+                    if shifted > ord('z'):          
                         shifted -= 26
-                elif char.isupper():                # Check if it's an uppercase letter
-                    if shifted > ord('Z'):          # Wrap around if shifted beyond 'Z'
+                elif char.isupper():                
+                    if shifted > ord('Z'):          
                         shifted -= 26
-                encrypted_text += chr(shifted)      # Append the shifted character
+                # Append the shifted character
+                encrypted_text += chr(shifted)  
+            # For non-alphabetic characters, keep as is    
             else:
-                encrypted_text += char              # For non-alphabetic characters, keep as is
-        return encrypted_text                       # Return the encrypted text
+                encrypted_text += char              
+        return encrypted_text                   
 
     def decrypt(self, ciphertext):
         decrypted_text = ""
         for char in ciphertext:
-            if char.isalpha():                      # Check if the character is an alphabet
-                shifted = ord(char) - self.shift    # Reverse the shift by the specified value
-                if char.islower():                  # Check if it's a lowercase letter
-                    if shifted < ord('a'):          # Wrap around if shifted before 'a'
+            # Check if the character is an alphabet
+            if char.isalpha():   
+                # Reverse the shift by the specified value                   
+                shifted = ord(char) - self.shift  
+                # Check if it's a lowercase letter  
+                if char.islower(): 
+                    # Wrap around if shifted before 'a'                 
+                    if shifted < ord('a'):          
                         shifted += 26
-                elif char.isupper():                # Check if it's an uppercase letter
-                    if shifted < ord('A'):          # Wrap around if shifted before 'A'
+                elif char.isupper():                
+                    if shifted < ord('A'):          
                         shifted += 26
-                decrypted_text += chr(shifted)      # Append the shifted character
+                decrypted_text += chr(shifted)      
             else:
-                decrypted_text += char              # For non-alphabetic characters, keep as is
-        return decrypted_text                       # Return the decrypted text
+                decrypted_text += char              
+        return decrypted_text                      
 
 
 def main():
